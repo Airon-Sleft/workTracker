@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <time.h>
+#include <cmath>
 
 class DataBase
 {
@@ -11,11 +12,15 @@ class DataBase
     DataBase();
     ~DataBase();
     private:
-    bool split(char* text, int size, std::string &date, int& count);
-    void read();
-    void updateLast();
+    bool putToMemory(char* text, int size, const int& bytePosition);
+    bool load(const int& startDay, const int& countDay);
+    void update(const int& oneDayCount);
     void getDate(std::string& writeValue);
-    void reWriteOneDay(const int & dayCountBack, std::string& word );
+    void reWriteOneDay(const int & byteOffset, const std::string& word );
+    void createFileIfNot();
+    int getTodayCountDB();
+    std::map<std::string, std::vector<int>> dataList; 
     public:
-    std::map<std::string, int> dataList; 
+    int getTodayCount();
+    void setTodayCount(const int& newCount);
 };
